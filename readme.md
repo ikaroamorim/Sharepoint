@@ -15,7 +15,7 @@
 <a name="description"></a>
 ## 💻 Project Description
 
-Sharepoint is a Repo to keep track of projects, tests or enven follow along tutorials related to sharepoint
+Sharepoint is a Repo to keep track of projects, tests or enven follow along tutorials related to Sharepoint
 
 <a name="Contents"></a>
 ## 💻 Contents
