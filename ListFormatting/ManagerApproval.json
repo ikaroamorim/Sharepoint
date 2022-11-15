@@ -1,0 +1,198 @@
+/* 
+
+List Formatting Examples Following tutorials
+
+"https://michelcarlo.com/2021/11/19/quick-sharepoint-approvals-using-list-formatting-to-set-field-values/"
+"https://www.iwmentor.com/pages/blog?p=action-button-in-list-set-column-value"
+
+
+*/
+
+{
+   "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json",
+   "elmType": "button",
+   "txtContent": "Setting Boolean Value",
+   "customRowAction": {
+      "action": "setValue",
+      "actionInput": {
+         "BooleanField": 1,
+         "Status": "In Progress"
+      }
+   }
+}
+
+
+
+{
+   "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json",
+   "elmType": "button",
+   "txtContent": "=if([$Status] == 'New', 'Set in Progress', if([$Status] == 'In Progress', 'Set Approved', 'none'))",
+   "customRowAction": {
+      "action": "setValue",
+      "actionInput": {
+         "BooleanField": 1,
+         "Status": "=if([$Status] == 'New', 'In Progress', if([$Status] == 'In Progress', 'Approved',''))",
+         "ApprovedBy": "=if([$Status] == 'In Progress', '@me', '')",
+         "ApprovedDate": "=if([$Status] == 'In Progress', '@now', '')"
+      }
+   }
+}
+
+
+{
+   "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json",
+   "elmType": "button",
+   "txtContent": "=if([$Status] == 'New', 'Set in Progress', if([$Status] == 'In Progress', 'Set Approved', 'none'))",
+   "style": {
+      "color": "white",
+      "background-color": "=if([$Status] == 'New', '#007bff', if([$Status] == 'In Progress', '#28a745', '#6c757d'))",
+      "border-color": "=if([$Status] == 'New', '#007bff', if([$Status] == 'In Progress', '#28a745', '#6c757d'))",
+      "display": "=if([$Status] == 'New', 'block', if([$Status] == 'In Progress', 'flex', 'none'))"
+   },
+   "customRowAction": {
+      "action": "setValue",
+      "actionInput": {
+         "BooleanField": 1,
+         "Status": "=if([$Status] == 'New', 'In Progress', if([$Status] == 'In Progress', 'Approved',''))",
+         "ApprovedBy": "=if([$Status] == 'In Progress', '@me', '')",
+         "ApprovedDate": "=if([$Status] == 'In Progress', '@now', '')"
+      }
+   }
+}
+
+
+
+{
+   "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json",
+   "elmType": "button",
+   "txtContent": "=if([$Status] == 'New', 'Set in Progress', if([$Status] == 'In Progress', 'Set Approved', 'none'))",
+   "style": {
+      "color": "white",
+      "background-color": "=if([$Status] == 'New', '#007bff', if([$Status] == 'In Progress', '#28a745', '#6c757d'))",
+      "border-color": "=if([$Status] == 'New', '#007bff', if([$Status] == 'In Progress', '#28a745', '#6c757d'))",
+      "visibility": "=if( @me == [$Manager.email] && [$Status] != 'Approved', 'visible', 'hidden')"
+   },
+   "customRowAction": {
+      "action": "setValue",
+      "actionInput": {
+         "BooleanField": 1,
+         "Status": "=if([$Status] == 'New', 'In Progress', if([$Status] == 'In Progress', 'Approved',''))",
+         "ApprovedBy": "=if([$Status] == 'In Progress', '@me', '')",
+         "ApprovedDate": "=if([$Status] == 'In Progress', '@now', '')"
+      }
+   }
+}
+
+
+
+{
+   "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json",
+   "elmType": "div",
+   "style": {
+      "flex-direction": "row",
+      "justify-content": "left",
+      "align-items": "center",
+      "flex-wrap": "nowrap"
+   },
+   "children": [
+      {
+         "elmType": "div",
+         "style": {
+            "display": "=if( @me == [$Manager.email] && [$Status] != 'Approved', 'inherit', 'none')",
+            "flex-direction": "row",
+            "justify-content": "left",
+            "align-items": "center",
+            "flex-wrap": "wrap"
+         },
+         "children": [
+            {
+               "elmType": "button",
+               "customRowAction": {
+                  "action": "setValue",
+                  "actionInput": {
+                     "BooleanField": 1,
+                     "Status": "=if([$Status] == 'New', 'In Progress', if([$Status] == 'In Progress', 'Approved',''))",
+                     "ApprovedBy": "=if([$Status] == 'In Progress', '@me', '')",
+                     "ApprovedDate": "=if([$Status] == 'In Progress', '@now', '')"
+                  }
+               },
+               "attributes": {
+                  "class": "ms-fontColor-themePrimary ms-fontColor-themeDarker--hover"
+               },
+               "style": {
+                  "border": "none",
+                  "background-color": "transparent",
+                  "cursor": "pointer",
+                  "display": "flex",
+                  "flex-directon": "row",
+                  "justify-content": "left",
+                  "align-items": "center",
+                  "flex-wrap": "wrap"
+               },
+               "children":[
+                  {
+                     "elmType":"span",
+                     "attributes":{
+                        "iconName": "SkypeCircleCheck"
+                     },
+                     "style":{
+                        "padding": "5px"
+                     }
+                  },
+                  {
+                     "elmType":"span",
+                     "txtContent":"=if([$Status] == 'New', 'Set in Progress', if([$Status] == 'In Progress', 'Approve', 'none'))",
+                     "style":{
+                        "word-break": "keep-all"
+                     }
+                  }
+               ]
+            },
+            {
+               "elmType": "button",
+               "customRowAction": {
+                  "action": "setValue",
+                  "actionInput": {
+                     "BooleanField": 1,
+                     "Status": "=if([$Status] == 'New', 'In Progress', if([$Status] == 'In Progress', 'Rejected',''))",
+                     "ApprovedBy": "=if([$Status] == 'In Progress', '@me', '')",
+                     "ApprovedDate": "=if([$Status] == 'In Progress', '@now', '')"
+                  }
+               },
+               "attributes": {
+                  "class": "ms-fontColor-themePrimary ms-fontColor-themeDarker--hover"
+               },
+               "style": {
+                  "border": "none",
+                  "background-color": "transparent",
+                  "cursor": "pointer",
+                  "display": "flex",
+                  "flex-directon": "row",
+                  "justify-content": "left",
+                  "align-items": "center",
+                  "flex-wrap": "wrap",
+                  "visibility":"=if( @me == [$Manager.email] && [$Status] == 'In Progress', 'visible', 'hidden')"
+               },
+               "children":[
+                  {
+                     "elmType":"span",
+                     "attributes":{
+                        "iconName": "Blocked"
+                     },
+                     "style":{
+                        "padding": "5px"
+                     }
+                  },
+                  {
+                     "elmType":"span",
+                     "txtContent":"=if([$Status] == 'New', 'Set in Progress', if([$Status] == 'In Progress', 'Reject', 'none'))",
+                     "style":{
+                        "word-break": "keep-all"
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}
