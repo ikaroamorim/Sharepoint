@@ -20,8 +20,8 @@ Sharepoint is a Repo to keep track of projects, tests or enven follow along tuto
 <a name="contents"></a>
 ## 📜 Contents
 
-## List Formatting
-### [!Manager Approval](./ListFormatting/)
+### List Formatting
+#### [Manager Approval](./ListFormatting/)
 <p align="center">
    <img alt="List Formatting Manager Approval" title="#Home" src="./assets/listFormattingManagerApproval.png" width="600px">
 </p>
