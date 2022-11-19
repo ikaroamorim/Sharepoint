@@ -37,6 +37,11 @@ It also Create a log file.
    This script run through the list items getting values from a field containing encoded XML values
 and saving these items in another field without changing the modified date
 
+#### [Transfer Lookup Column Values](./Powershell/)   
+
+   This script run through the list items getting values from a field containing encoded XML values
+and saving these items in another field without changing the modified date
+
 
 <a name="technologies"></a>
 ## 🛠 Technologies
