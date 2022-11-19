@@ -29,6 +29,14 @@ Sharepoint is a Repo to keep track of projects, tests or enven follow along tuto
 ### Powershell
 #### [Add permission to items according field value](./Powershell/)
 
+   This script run through the list items adding the specific role if the field match the desired value.
+It also Create a log file.
+
+#### [Extract from XML and Save in Another column](./Powershell/)   
+
+   This script run through the list items getting values from a field containing encoded XML values
+and saving these items in another field without changing the modified date
+
 
 <a name="technologies"></a>
 ## 🛠 Technologies
