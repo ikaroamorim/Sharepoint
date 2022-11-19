@@ -26,6 +26,10 @@ Sharepoint is a Repo to keep track of projects, tests or enven follow along tuto
    <img alt="List Formatting Manager Approval" title="#Home" src="./assets/listFormattingManagerApproval.png" width="600px">
 </p>
 
+### Powershell
+#### [Add permission to items according field value](./Powershell/)
+
+
 <a name="technologies"></a>
 ## 🛠 Technologies
 
