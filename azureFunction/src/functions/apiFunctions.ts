@@ -50,6 +50,7 @@ export interface IPokemonDetailResponse {
 }
 
 export interface IPokemonFormated{
+   Title: String,
    Numero: Number,
    Altura: Number,
    Peso: Number,
@@ -77,10 +78,11 @@ export function formatPokemonDetail( pokemonDetail: IPokemonDetailResponse): IPo
 
    return {
       Numero: pokemonDetail.id,
+      Title: pokemonDetail.name,
       Altura: pokemonDetail.height,
       Peso: pokemonDetail.weight,
-      Estatisticas: pokemonDetail.stats.reduce( ( acc, curr) => acc + ` ${curr.stat.name}:${curr.base_stat}; `, ''),
-      Tipos: pokemonDetail.types.reduce( ( acc, curr) => acc + `${curr.type.name}; `, '' )
+      Estatisticas: pokemonDetail.stats.reduce( ( acc, curr) => acc + `${curr.stat.name}:${curr.base_stat}; `, '').trim(),
+      Tipos: pokemonDetail.types.reduce( ( acc, curr) => acc + `${curr.type.name}; `, '' ).trim()
    }
 }
 /*
