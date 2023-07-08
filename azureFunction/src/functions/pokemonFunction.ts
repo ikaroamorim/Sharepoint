@@ -1,6 +1,11 @@
 import { app, InvocationContext, Timer } from "@azure/functions";
 
-import { getPokemons } from "./apiFunctions";
+import {
+    getPokemons, 
+    getPokemonDetail, /*getPokemonImages*/
+    formatPokemonDetail
+} from "./apiFunctions";
+
 import { getSPAuth } from "./spFunctions";
 
 
@@ -12,10 +17,17 @@ export async function pokemonFunction(myTimer: Timer, context: InvocationContext
 
     const pokemonList = await getPokemons()
 
-    
+    pokemonList.results.forEach(async pokemonItem => {
+        const pkmnDetail = formatPokemonDetail(await getPokemonDetail(pokemonItem.url))
+
+        console.log(pkmnDetail)
+
+        //console.log( await getPokemonImages(pkmnDetail))
+    });
 
 
-    console.log( pokemonList.results );
+
+
 
 }
 
