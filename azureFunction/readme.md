@@ -27,3 +27,8 @@ Registrando App Registration
       <AppPermissionRequest Scope="http://sharepoint/content/sitecollection" Right="FullControl" />
    </AppPermissionRequests>
 https://www.aquaforest.com/blog/using-sharepoint-app-only-authentication-in-aquaforest-products
+
+
+Rodando o Projeto
+1. Instalar(caso não tenha instalado ainda) e executar o Azure Storage Emulator
+2. 

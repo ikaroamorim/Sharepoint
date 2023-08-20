@@ -1,5 +1,5 @@
 import * as spauth from 'node-sp-auth'
-import rp from 'request-promise'
+import * as rp from 'request-promise'
 
 export async function getSPAuth(siteUrl): Promise<spauth.IAuthResponse> {
     return spauth
@@ -22,15 +22,35 @@ export async function getFormDigest(siteUrl, headers) {
         .then(json => json?.d?.GetContextWebInformation?.FormDigestValue)
 }
 
-export async function getSPItems(siteUrl, listDispName, headers) {
-    return rp
-        .get({
-            url: `${siteUrl}/_api/web/lists/GetByTitle('${listDispName}')/items`,
-            headers: headers,
-            json: true
+export async function getSPItems(siteUrl, listGuid, headers) {
+
+    headers.Accept = "application/json;odata=verbose"
+
+    return fetch(
+        `${siteUrl}/_api/web/lists(guid'${listGuid}')/items`, {
+        method: 'GET',
+        headers: headers,
+    })
+        .then(response => response.json())
+        .then(json => {
+            if (json?.d?.results) {
+                return json.d.results
+            } else {
+                return []
+            }
         })
+
+    /*const options: rp.OptionsWithUri  = {
+        uri: `${siteUrl}/_api/web/lists(guid'${listGuid}')/items`,
+        headers: headers,
+        json: true
+    }
+
+    return rp.get(options)
         .then(response => response.d.results)
         .catch(err => console.error('getSPItemsPaginated' + err.message))
+        */
+
 }
 
 export async function getSPItemsPaginated(siteUrl, listDispName, headers, idiomaId) {
