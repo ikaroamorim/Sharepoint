@@ -1,4 +1,5 @@
 import * as spauth from 'node-sp-auth'
+import { title } from 'process'
 import * as rp from 'request-promise'
 
 export async function getSPAuth(siteUrl): Promise<spauth.IAuthResponse> {
@@ -39,19 +40,50 @@ export async function getSPItems(siteUrl, listGuid, headers) {
                 return []
             }
         })
-
-    /*const options: rp.OptionsWithUri  = {
-        uri: `${siteUrl}/_api/web/lists(guid'${listGuid}')/items`,
-        headers: headers,
-        json: true
-    }
-
-    return rp.get(options)
-        .then(response => response.d.results)
-        .catch(err => console.error('getSPItemsPaginated' + err.message))
-        */
-
 }
+
+export function getArrayOfItemNumbers( items):number[]{
+    return items.map(item => item.Numero)
+}
+
+export async function postItem(siteUrl, listGUID, headers, context, Item) {
+    const headersLog = Object.assign({}, headers)
+    headersLog['Accept'] = "application/json;odata=verbose"
+    headersLog['Content-Type'] = "application/json;odata=verbose"
+    headersLog['X-RequestDigest'] = await getFormDigest(siteUrl, headers)
+
+    rp
+        .get({
+            url: `${siteUrl}_api/web/lists/GetByTitle('${encodeURIComponent(listDispName)}')?$select=ListItemEntityTypeFullName`,
+            headers: headers,
+            json: true
+        })
+        .then(data => {
+
+
+            const requestLogBody = JSON.stringify({
+                "__metadata": { "type": data.d.ListItemEntityTypeFullName },
+                "Title": title,
+                "Detalhes": detalhes,
+                "Idioma": idioma,
+                "Estrutura": estrutura
+            })
+
+            headersLog['Content-Length'] = (new TextEncoder().encode(requestLogBody)).length
+
+            return fetch(`${siteUrl}_api/web/lists/GetByTitle('${encodeURIComponent(listDispName)}')/items`, {
+                method: "POST",
+                headers: headersLog,
+                body: requestLogBody
+            })
+                .then(response => {
+                    console.log({ response })
+                    return response.status
+                })
+        })
+        .catch(err => context.log(err.message))
+}
+
 
 export async function getSPItemsPaginated(siteUrl, listDispName, headers, idiomaId) {
     const responseObj = {}

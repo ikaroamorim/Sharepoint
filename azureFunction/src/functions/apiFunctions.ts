@@ -2,7 +2,7 @@ import * as fs from "fs"
 import { Stream } from "node:stream"
 
 export interface IPokemonResponse {
-   count: Number,
+   count: number,
    next?: String,
    previous?: String,
    results: [
@@ -14,10 +14,10 @@ export interface IPokemonResponse {
 }
 
 export interface IPokemonDetailResponse {
-   id: Number,
+   id: number,
    name: String,
-   height: Number,
-   weight: Number,
+   height: number,
+   weight: number,
    sprites: {
       "front_default"?: URL,
       other: {
@@ -31,7 +31,7 @@ export interface IPokemonDetailResponse {
    },
    stats: [
       {
-         "base_stat": Number,
+         "base_stat": number,
          stat: {
             name: String,
             url: URL
@@ -51,9 +51,9 @@ export interface IPokemonDetailResponse {
 
 export interface IPokemonFormated{
    Title: String,
-   Numero: Number,
-   Altura: Number,
-   Peso: Number,
+   Numero: number,
+   Altura: number,
+   Peso: number,
    Estatisticas: String,
    Tipos: String
 }
